@@ -7,6 +7,7 @@ import Auth from "./Auth";
 import Home from "./Home";
 import Register from "./Register";
 import Maps from "./Maps";
+import Dossier from "./Dossier";
 import Detail from "./Detail";
 import supabase from "../supabaseClient";
 import CustomTabBar from "./../Components/CustomTabBar";
@@ -18,10 +19,16 @@ const HomeTabs = () => {
   return (
     <Tab.Navigator
       tabBar={(props) => <CustomTabBar {...props} />} // Use the custom tab bar for all tabs
+      
     >
       <Tab.Screen
         name="Home"
         component={HomeStack}
+        options={{ headerShown: false }}
+      />
+      <Tab.Screen
+        name="Dossier"
+        component={Dossier}
         options={{ headerShown: false }}
       />
       <Tab.Screen

@@ -15,6 +15,8 @@ const CustomTabBar = ({ state, descriptors, navigation }) => {
           iconName = state.index === index ? 'accessibility' : 'accessibility-outline';
         } else if (route.name === 'Maps') {
           iconName = state.index === index ? 'map' : 'map-outline';
+        } else if (route.name === 'Dossier') {
+          iconName = state.index === index ? 'book' : 'folder-outline';
         }
 
         const { options } = descriptors[route.key];

@@ -156,7 +156,7 @@ const styles = StyleSheet.create({
     position: 'relative',
   },
   map: {
-    flex: 1,
+    ...StyleSheet.absoluteFillObject, // Make the map fill the entire screen
   },
   header: {
     flexDirection: "row",
@@ -167,12 +167,12 @@ const styles = StyleSheet.create({
     backgroundColor: "#388e3c",
     borderRadius: 20,
     height: 40,
-    position: 'absolute', // Keep the header fixed at the top
-    top: 30, // Stick to the top of the screen
-    left: 15, // Align with Home screen's left margin
-    right: 15, // Align with Home screen's right margin
-    zIndex: 1, // Ensure the header is above the map
-    marginTop: 20, // Extra margin to adjust its position if needed
+    position: 'absolute',
+    top: 30, 
+    left: 15,
+    right: 15,
+    zIndex: 1, 
+    marginTop: 20, 
   },
   title: {
     fontSize: 24,
@@ -186,18 +186,18 @@ const styles = StyleSheet.create({
     padding: 10,
     position: "absolute",
     left: 10,
-    zIndex: 1, // Ensure the button is on top
+    zIndex: 1, 
   },
   locateButton: {
     padding: 10,
     position: "absolute",
-    right: 50, // Adjust to make space for map type button
-    zIndex: 1, // Ensure the button is on top
+    right: 50, 
+    zIndex: 1, 
   },
   mapTypeButton: {
     padding: 10,
     position: "absolute",
     right: 10,
-    zIndex: 1, // Ensure the button is on top
+    zIndex: 1,
   },
 });
