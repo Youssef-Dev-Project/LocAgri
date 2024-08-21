@@ -5,6 +5,8 @@ import { AntDesign, MaterialIcons } from '@expo/vector-icons';
 import * as Location from 'expo-location';
 import { useAuthentication } from '../hooks/useAuthentication';
 import { fetchBorderData } from '../Components/LandBorders'; // Adjust the path as necessary
+import { StatusBar } from "expo-status-bar";
+
 
 export default function Maps({ navigation, route }) {
   const { logout } = useAuthentication();

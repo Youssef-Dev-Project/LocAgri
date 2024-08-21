@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, ScrollView, Image, TouchableOpacity } from 'react-native';
-import { Table, Row, Rows } from 'react-native-table-component';
 import supabase from '../supabaseClient';
 
 const Detail = ({ route, navigation }) => {
@@ -63,26 +62,9 @@ const Detail = ({ route, navigation }) => {
     navigation.navigate('Maps', {
       latitude,
       longitude,
-      positionId, // Pass the Position_ID as well
+      positionId,
     });
   };
-
-  const tableHead = ['Exp', 'Lat/Lon', 'Sup(m2)'];
-  const tableData = exploitations.map((exp, index) => [
-    <TouchableOpacity
-      style={styles.expCircle}
-      key={index}
-      onPress={() => handleLocationClick(exp.Position_ID, exp.Position.Latitude, exp.Position.Longitude)}
-    >
-      <Text style={styles.expText}>{index + 1}</Text>
-    </TouchableOpacity>,
-    <View style={styles.latLonContainer} key={`latlon-${index}`}>
-      <Text style={styles.tableText}>{exp.Position.Latitude}</Text>
-      <View style={styles.separator} />
-      <Text style={styles.tableText}>{exp.Position.Longitude}</Text>
-    </View>,
-    exp.Superficie,
-  ]);
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
@@ -108,12 +90,22 @@ const Detail = ({ route, navigation }) => {
           <View style={styles.exploitationSection}>
             <Text style={styles.sectionTitle}>Exploitation</Text>
             {exploitations.length > 0 ? (
-              <ScrollView style={styles.tableContainer}>
-                <Table borderStyle={{ borderColor: '#2e7d32', borderWidth: 1 }}>
-                  <Row data={tableHead} style={styles.tableHeader} textStyle={styles.tableHeaderText} />
-                  <Rows data={tableData} textStyle={styles.tableText} />
-                </Table>
-              </ScrollView>
+              exploitations.map((exp, index) => (
+                <TouchableOpacity
+                  style={styles.card}
+                  key={index}
+                  onPress={() => handleLocationClick(exp.Position_ID, exp.Position.Latitude, exp.Position.Longitude)}
+                >
+                  <View style={styles.expCircle}>
+                    <Text style={styles.expText}>{index + 1}</Text>
+                  </View>
+                  <View style={styles.cardContent}>
+                    <Text style={styles.cardText}><Text style={styles.label}>Latitude:</Text> {exp.Position.Latitude}</Text>
+                    <Text style={styles.cardText}><Text style={styles.label}>Longitude:</Text> {exp.Position.Longitude}</Text>
+                    <Text style={styles.cardText}><Text style={styles.label}>Superficie:</Text> {exp.Superficie} m²</Text>
+                  </View>
+                </TouchableOpacity>
+              ))
             ) : (
               <Text style={styles.noDataText}>No exploitation found</Text>
             )}
@@ -140,7 +132,6 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.3,
     shadowRadius: 3.84,
-    maxHeight: '100%', // Ensure it doesn't overflow beyond the screen
   },
   detailContent: {
     flexGrow: 1,
@@ -175,59 +166,50 @@ const styles = StyleSheet.create({
   exploitationSection: {
     width: '100%',
     marginTop: 20,
-    alignItems: 'center', // Center content horizontally
   },
   sectionTitle: {
     fontSize: 20,
     fontWeight: 'bold',
     marginBottom: 10,
     color: "#2e7d32",
-    textAlign: 'center', // Center text horizontally
-  },
-  tableContainer: {
-    width: '100%',
-    maxHeight: 300, // Adjust height as needed
-  },
-  tableHeader: {
-    height: 40,
-    backgroundColor: 'transparent',
-  },
-  tableHeaderText: {
-    textAlign: 'center',
-    fontWeight: 'bold',
-    color: "#2e7d32",
-  },
-  tableText: {
-    margin: 6,
     textAlign: 'center',
   },
-  latLonContainer: {
-    flexDirection: 'column',
+  card: {
+    flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
-  },
-  separator: {
-    width: '100%',
-    height: 1,
-    borderColor: '#2e7d32', // Color of the dashed line
-    borderStyle: 'dashed', // Makes the line dashed
-    borderWidth: 0, // No border width directly, we use borderColor and borderStyle
-    borderTopWidth: 1, // Apply borderTopWidth to create the dashed line effect
-    marginVertical: 4, 
+    padding: 12,
+    marginVertical: 8,
+    backgroundColor: '#dcedc8',
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: '#81c784',
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 3.84,
+    elevation: 3,
   },
   expCircle: {
-    width: 30,
-    height: 30,
-    borderRadius: 15,
-    backgroundColor: '#2e7d32',
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    backgroundColor: '#388e3c',
     justifyContent: 'center',
     alignItems: 'center',
-    margin: 4,
-    alignSelf: 'center', // Center the circle within its container
+    marginRight: 15,
   },
   expText: {
     color: '#fff',
     fontWeight: 'bold',
+    fontSize: 18,
+  },
+  cardContent: {
+    flex: 1,
+  },
+  cardText: {
+    fontSize: 16,
+    color: '#333',
+    marginBottom: 4,
   },
   noDataText: {
     fontSize: 18,

@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import Ionicons from '@expo/vector-icons/Ionicons';
 
 
 export default function Dossier({ navigation }) {
@@ -37,11 +38,7 @@ export default function Dossier({ navigation }) {
       style={styles.item}
       onPress={() => navigation.navigate('Detail', { agriculteur: item })}
     >
-      <Image
-        source={{ uri: item.imageUrl }}
-        style={styles.itemImage}
-        resizeMode="cover"
-      />
+      <Ionicons name="folder" size={50} color="#388e3c" style={styles.itemIcon} />
       <View style={styles.itemTextContainer}>
         <Text style={styles.itemText}>{`${item.Nom} ${item.Prenom}`}</Text>
         <Text style={styles.itemSubText}>CIN: {item.CIN_ID}</Text>

@@ -69,10 +69,9 @@ export default function Home({ navigation }) {
       onPress={() => navigation.navigate('Detail', { agriculteur: item })}
     >
       <Image
-        source={{ uri: item.imageUrl || defaultImageUrl }} // Use default image if imageUrl is not available
+        source={{ uri: item.imageUrl ? item.imageUrl : defaultImageUrl }} // Use default image if imageUrl is not available
         style={styles.itemImage}
         resizeMode="cover"
-        onError={() => { item.imageUrl = defaultImageUrl; }} // Handle image error
       />
       <Text style={styles.itemText}>{`${item.Nom} ${item.Prenom}`}</Text>
       <Text style={styles.itemSubText}>CIN: {item.CIN_ID}</Text>
